@@ -3,14 +3,26 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.4.0</version>
+  </parent>
+
   <groupId>com.mycompany.app</groupId>
   <artifactId>login-register-microservices</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-
-
   <name>login-register-microservices</name>
   <packaging>pom</packaging>
+
+  <modules>
+    <module>authentication</module>
+    <module>config</module>
+    <module>eureka</module>
+    <module>gateway</module>
+    <module>users</module>
+  </modules>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -24,6 +36,7 @@
         <version>1.18.36</version>
       </dependency>
     </dependencies>
+
 
 
 
