@@ -13,4 +13,12 @@ spring:
           - id: users
             uri: http://localhost:8090
             predicates:
-              - Path=/api/users/**
+              - Path=/api/user/**
+          - id: authentication
+            uri: http://localhost:9090
+            predicates:
+              - Path=/api/auth/**
+
+eureka:
+  client:
+    register-with-eureka: false
