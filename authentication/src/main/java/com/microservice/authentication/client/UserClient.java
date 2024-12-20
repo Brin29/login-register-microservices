@@ -9,6 +9,6 @@ import java.util.List;
 @FeignClient(name = "msvc-user", url = "localhost:8080/api/user")
 public interface UserClient {
 
-    @GetMapping("/getUser")
+    @GetMapping("/users")
     List<UserDTO> findUsers();
 }

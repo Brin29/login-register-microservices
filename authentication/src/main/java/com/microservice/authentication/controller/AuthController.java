@@ -1,9 +1,9 @@
 package com.microservice.authentication.controller;
 
 
+import com.microservice.authentication.client.UserClient;
 import com.microservice.authentication.dto.UserDTO;
-import org.apache.catalina.User;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,11 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 
-    @GetMapping("users")
-    public List<UserDTO> getAll(){
-        return
+    @Autowired
+    private UserClient userClient;
+
+    @GetMapping("/users")
+    public List<UserDTO> getUsers(){
+        List<UserDTO> user = userClient.findUsers();
+        return user;
     }
 }

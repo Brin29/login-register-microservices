@@ -9,15 +9,15 @@ spring:
       discovery:
         locator:
           enabled: true
-        routes:
-          - id: users
-            uri: http://localhost:8090
-            predicates:
-              - Path=/api/user/**
-          - id: authentication
-            uri: http://localhost:9090
-            predicates:
-              - Path=/api/auth/**
+      routes:
+        - id: users
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/user/**
+        - id: authentication
+          uri: http://localhost:9090
+          predicates:
+            - Path=/api/auth/**
 
 eureka:
   client:
