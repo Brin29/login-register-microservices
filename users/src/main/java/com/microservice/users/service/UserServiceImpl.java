@@ -26,11 +26,6 @@ public class UserServiceImpl implements IUserService{
     }
 
     @Override
-    public User save(User user){
-        return repository.save(user);
-    }
-
-    @Override
     public User update(User newUser, long id){
         return repository.findById(id)
                 .map(user -> {

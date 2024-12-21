@@ -1,7 +1,9 @@
 package com.microservice.authentication.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,28 +21,15 @@ import java.util.Arrays;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-
-    @Bean
-    public CorsConfigurationSource configurationSource(){
-        CorsConfiguration configuration = new CorsConfiguration();
-
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));
-        configuration.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-
-        return source;
-    }
+    @Autowired
+    private WebConfig webConfig;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
 
         httpSecurity
-                .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.configurationSource(configurationSource()))
+                .csrf(Customizer.withDefaults())
+                .cors(cors -> webConfig.corsConfig())
                 .authorizeHttpRequests(authRequest ->
                         authRequest.anyRequest().permitAll());
 

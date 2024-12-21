@@ -10,8 +10,6 @@ public interface IUserService {
 
     User findById(long id);
 
-    User save(User user);
-
     User update(User newUser, long id);
 
     void delete(long id);

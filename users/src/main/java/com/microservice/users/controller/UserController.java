@@ -15,8 +15,8 @@ public class UserController {
     @Autowired
     private IUserService iUserService;
 
-    @PostMapping("/create")
-    public ResponseEntity<User> saveUser(@RequestBody User user){
+    @PostMapping("/register")
+    public ResponseEntity<User> register(@RequestBody User user){
         return ResponseEntity.ok(iUserService.save(user));
     }
 
