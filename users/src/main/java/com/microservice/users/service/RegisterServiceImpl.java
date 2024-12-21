@@ -14,7 +14,7 @@ public class RegisterServiceImpl {
 
     public AuthResponse register(User registerUser){
         User user = User.builder()
-                .email(registerUser.getEmail())
+                .username(registerUser.getUsername())
                 .firstName(registerUser.getFirstName())
                 .lastName(registerUser.getLastName())
                 .password(registerUser.getPassword())

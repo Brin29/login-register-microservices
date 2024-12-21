@@ -32,7 +32,7 @@ public class UserServiceImpl implements IUserService{
                     user.setFirstName(newUser.getFirstName());
                     user.setLastName(newUser.getLastName());
                     user.setPassword(newUser.getPassword());
-                    user.setEmail(newUser.getEmail());
+                    user.setUsername(newUser.getUsername());
                     return repository.save(newUser);
                 })
                 .orElseGet(() -> {
