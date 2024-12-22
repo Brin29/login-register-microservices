@@ -2,8 +2,6 @@ package com.microservice.users.service;
 
 import com.microservice.users.entities.User;
 import com.microservice.users.persistence.UserRepository;
-import jakarta.persistence.Entity;
-import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,30 +1,35 @@
 package com.microservice.users.service;
 
 import com.microservice.users.entities.AuthResponse;
+import com.microservice.users.entities.RegisterRequest;
 import com.microservice.users.entities.User;
+import com.microservice.users.jwt.JwtService;
 import com.microservice.users.persistence.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Service
+
 @RequiredArgsConstructor
+@Service
 public class RegisterServiceImpl {
 
     private final UserRepository userRepository;
+    private final JwtService jwtService;
+    private final PasswordEncoder passwordEncoder;
 
-    public AuthResponse register(User registerUser){
+    public AuthResponse register(RegisterRequest request){
         User user = User.builder()
-                .username(registerUser.getUsername())
-                .firstName(registerUser.getFirstName())
-                .lastName(registerUser.getLastName())
-                .password(registerUser.getPassword())
+                .username(request.getUsername())
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
+                .password(passwordEncoder.encode(request.getPassword()))
                 .build();
 
         userRepository.save(user);
 
         return AuthResponse.builder()
-                .token()
+                .token(jwtService.getToken(user))
                 .build();
-
     }
 }

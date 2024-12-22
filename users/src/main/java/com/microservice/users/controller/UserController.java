@@ -1,7 +1,10 @@
 package com.microservice.users.controller;
 
+import com.microservice.users.entities.AuthResponse;
+import com.microservice.users.entities.RegisterRequest;
 import com.microservice.users.entities.User;
 import com.microservice.users.service.IUserService;
+import com.microservice.users.service.RegisterServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +18,12 @@ public class UserController {
     @Autowired
     private IUserService iUserService;
 
+    @Autowired
+    private RegisterServiceImpl registerService;
+
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User user){
-        return ResponseEntity.ok(iUserService.save(user));
+    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request){
+        return ResponseEntity.ok(registerService.register(request));
     }
 
     @GetMapping("/users")
