@@ -17,8 +17,8 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
         <module name="config" />
-        <module name="gateway" />
         <module name="eureka" />
+        <module name="gateway" />
         <module name="authentication" />
       </profile>
     </annotationProcessing>

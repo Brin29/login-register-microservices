@@ -6,6 +6,7 @@ import com.microservice.users.entities.User;
 import com.microservice.users.jwt.JwtService;
 import com.microservice.users.persistence.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class RegisterServiceImpl {
 
+    @Autowired
     private final UserRepository userRepository;
+    @Autowired
     private final JwtService jwtService;
+    @Autowired
     private final PasswordEncoder passwordEncoder;
 
     public AuthResponse register(RegisterRequest request){
