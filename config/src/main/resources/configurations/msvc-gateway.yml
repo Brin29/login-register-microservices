@@ -18,6 +18,10 @@ spring:
           uri: http://localhost:9090
           predicates:
             - Path=/api/auth/**
+        - id: auth-services
+          uri: http://localhost:9094
+          predicates:
+            - Path=/auth/**
 
 eureka:
   client:
