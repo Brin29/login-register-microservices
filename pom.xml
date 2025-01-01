@@ -18,11 +18,9 @@
 
   <modules>
     <module>auth-service</module>
-    <module>authentication</module>
     <module>config</module>
     <module>eureka</module>
     <module>gateway</module>
-    <module>users</module>
   </modules>
 
   <properties>

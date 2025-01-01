@@ -36,13 +36,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
 
         httpSecurity
-                .csrf(Customizer.withDefaults())
+                .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(configurationSource()))
                 .authorizeHttpRequests(authRequest ->
                         authRequest
-                            .requestMatchers("/auth/**")
-                            .authenticated()
-                            .anyRequest().permitAll());
+                            .requestMatchers("/auth/register").permitAll()
+                            .anyRequest().authenticated())
+                .httpBasic(Customizer.withDefaults());
 
         return httpSecurity.build();
     }
