@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(configurationSource()))
                 .authorizeHttpRequests(authRequest ->
                         authRequest
-                            .requestMatchers("/auth/register", "/auth/login", "/auth/prueba").permitAll()
+                            .requestMatchers("/authorization/register", "/authorization/login", "/authorization/prueba").permitAll()
                             .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
 
