@@ -1,12 +1,16 @@
 package com.microservicio.auth_service.service;
 
 import com.microservicio.auth_service.entities.AuthResponse;
+import com.microservicio.auth_service.entities.LoginRequest;
 import com.microservicio.auth_service.entities.RegisterRequest;
 import com.microservicio.auth_service.entities.User;
 import com.microservicio.auth_service.jwt.JwtService;
 import com.microservicio.auth_service.persistence.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +18,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements IAuthService{
 
-    @Autowired
+    private final AuthenticationManager authenticationManager;
     private final UserRepository repository;
-
-    @Autowired
     private final JwtService jwtService;
-
-    @Autowired
     private final PasswordEncoder passwordEncoder;
 
     public AuthResponse register(RegisterRequest request){
@@ -37,6 +37,19 @@ public class AuthServiceImpl implements IAuthService{
         return AuthResponse
                 .builder()
                 .token(jwtService.getToken(user))
+                .build();
+    }
+
+    public AuthResponse login(LoginRequest request){
+
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+
+        UserDetails userDetails = repository.findByUsername(request.getUsername()).orElseThrow();
+        String token = jwtService.getToken(userDetails);
+
+        return AuthResponse
+                .builder()
+                .token(token)
                 .build();
     }
 }
