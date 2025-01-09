@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/authorization")
+@RequestMapping("/api/auth")
 public class UserController {
 
     @Autowired
@@ -24,6 +24,11 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request){
         return ResponseEntity.ok(serviceImpl.login(request));
+    }
+
+    @RequestMapping(method = RequestMethod.OPTIONS)
+    public ResponseEntity<Void> handleOptions(){
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/prueba")

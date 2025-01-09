@@ -2,6 +2,8 @@ package com.microservicio.auth_service.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,6 +14,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -21,9 +24,12 @@ public class SecurityConfig {
 
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080", "http://localhost:4200"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"
+        ));
+        configuration.setAllowedHeaders(Arrays.asList(
+                "AUTHORIZATION", "CONTENT-TYPE"
+        ));
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -40,7 +46,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(configurationSource()))
                 .authorizeHttpRequests(authRequest ->
                         authRequest
-                            .requestMatchers("/authorization/register", "/authorization/login", "/authorization/prueba").permitAll()
+                            .requestMatchers("/api/auth/register", "/api/auth/login", "/api/auth/prueba").permitAll()
                             .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
 
