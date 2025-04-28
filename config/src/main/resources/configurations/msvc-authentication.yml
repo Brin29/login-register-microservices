@@ -6,7 +6,7 @@ spring:
     name: msvc-authentication
   datasource:
     url: jdbc:mysql://localhost:3306/users
-    username: root
+    username: brein
     password: 12345
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
