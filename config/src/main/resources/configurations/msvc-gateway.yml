@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8085
 
 spring:
   application:
@@ -11,7 +11,7 @@ spring:
           enabled: true
       routes:
         - id: auth-services
-          uri: http://localhost:9094
+          uri: http://localhost:9092
           predicates:
             - Path=/api/auth/**
 

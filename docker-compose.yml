@@ -1,16 +1,53 @@
 services:
-  spring-microservices:
-    image: spring-microservices
-    container_name: spring-microservices-container
+  eureka:
+    image: eureka
     build:
-      context: .
+      context: ./eureka
       dockerfile: Dockerfile
     ports:
-      - "8081:8080"
+      - "8760:8760"
     networks:
       - spring-network
     depends_on:
       - mysql
+
+  config:
+    image: config
+    build:
+      context: ./config
+      dockerfile: Dockerfile
+    ports:
+      - "8889:8889"
+    networks:
+      - spring-network
+    depends_on:
+      - eureka
+
+  auth-services:
+    image: auth-services
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    ports:
+      - "9092:9092"
+    networks:
+      - spring-network
+    depends_on:
+      - eureka
+      - config
+
+  gateway:
+    image: gateway
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8085:8085"
+    networks:
+      - spring-network
+    depends_on:
+      - eureka
+      - config
 
   mysql:
     image: mysql
